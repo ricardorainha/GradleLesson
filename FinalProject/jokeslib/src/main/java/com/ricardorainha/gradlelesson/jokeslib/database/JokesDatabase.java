@@ -8,6 +8,11 @@ public class JokesDatabase {
 
     private static Random RANDOM = new Random();
     private static List<String> jokes = new ArrayList<>();
+
+    /**
+     * Jokes from https://www.rd.com/jokes/computer/
+     */
+
     static {
         jokes.add("Did you hear about the monkeys who shared an Amazon account?\nThey were Prime mates.");
         jokes.add("Don't use \"beef stew\" as a computer password.\nIt's not stroganoff.");
