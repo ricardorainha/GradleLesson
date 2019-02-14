@@ -7,11 +7,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.ricardorainha.gradlelesson.jokeslib.JokeFactory;
 import com.ricardorainha.gradlelesson.jokesviewlib.JokeActivity;
+import com.udacity.gradle.builditbigger.tasks.JokeLoaderAsyncTask;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements JokeLoaderAsyncTask.OnJokeLoadListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +43,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view) {
-        Intent jokeActivityIntent = new Intent(this, JokeActivity.class);
-        jokeActivityIntent.putExtra(JokeActivity.EXTRA_JOKE, JokeFactory.getJoke());
-        startActivity(jokeActivityIntent);
+        new JokeLoaderAsyncTask(this).execute();
     }
 
-
+    @Override
+    public void onJokeLoaded(String joke) {
+        Intent jokeActivityIntent = new Intent(this, JokeActivity.class);
+        jokeActivityIntent.putExtra(JokeActivity.EXTRA_JOKE, joke);
+        startActivity(jokeActivityIntent);
+    }
 }
