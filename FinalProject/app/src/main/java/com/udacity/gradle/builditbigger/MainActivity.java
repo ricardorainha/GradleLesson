@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import com.ricardorainha.gradlelesson.jokesviewlib.JokeActivity;
 import com.udacity.gradle.builditbigger.tasks.JokeLoaderAsyncTask;
@@ -13,10 +14,14 @@ import com.udacity.gradle.builditbigger.tasks.JokeLoaderAsyncTask;
 
 public class MainActivity extends AppCompatActivity implements JokeLoaderAsyncTask.OnJokeLoadListener {
 
+    ProgressBar pbLoadJoke;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        pbLoadJoke = findViewById(R.id.pb_load_joke);
     }
 
 
@@ -43,11 +48,13 @@ public class MainActivity extends AppCompatActivity implements JokeLoaderAsyncTa
     }
 
     public void tellJoke(View view) {
+        pbLoadJoke.setVisibility(View.VISIBLE);
         new JokeLoaderAsyncTask(this).execute();
     }
 
     @Override
     public void onJokeLoaded(String joke) {
+        pbLoadJoke.setVisibility(View.GONE);
         Intent jokeActivityIntent = new Intent(this, JokeActivity.class);
         jokeActivityIntent.putExtra(JokeActivity.EXTRA_JOKE, joke);
         startActivity(jokeActivityIntent);
