@@ -25,7 +25,8 @@ public class JokeLoaderAsyncTask extends AsyncTask<Void, Void, String> {
 
         if (apiService == null) {
             MyApi.Builder apiBuilder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null)
-                    .setRootUrl("http://10.0.2.2:8080/_ah/api/")
+                    .setRootUrl("http://10.0.2.2:8080/_ah/api/") // Android Emulator
+//                    .setRootUrl("http://192.168.230.5:8080/_ah/api/") // Host PC - uncomment to use on real device
                     .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
                         @Override
                         public void initialize(AbstractGoogleClientRequest<?> request) throws IOException {
